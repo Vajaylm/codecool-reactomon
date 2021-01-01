@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 
 class PokemonList extends Component {
   render() {
-    return (
-      <div>
-        <h1>Pokemon List</h1>
-      </div>
-    );
+    return this.props.pokemons.map((pokemon) => (
+      <h3>{ pokemon.name }</h3>
+    ));
   }
 }
 
