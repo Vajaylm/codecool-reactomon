@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class PokemonList extends Component {
   render() {
     return this.props.pokemons.map((pokemon) => (
-      <h3>{ pokemon.name }</h3>
+      <Link to={'/pokemon/' + pokemon.id }>{ pokemon.name }<br /></Link>
     ));
   }
 }
