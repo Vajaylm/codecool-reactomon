@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import axios from 'axios';
 import Navbar from './components/layout/Navbar';
 import PokemonList from './components/content/PokemonList';
 import TypeList from './components/content/TypeList';
@@ -11,6 +12,11 @@ class App extends Component {
     types: []
   }
   
+  componentDidMount() {
+    axios.get('https://pokeapi.co/api/v2/pokemon')
+      .then(response => this.setState({ pokemons: response.data.results }));
+  }
+
   render() {
     return (
       <Router>
