@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import PokemonList from './components/content/PokemonList';
+import TypeList from './components/content/TypeList';
 import './App.css';
 
 class App extends Component {
@@ -14,6 +15,18 @@ class App extends Component {
       },
       {
         name: "ivysaur",
+        id: 2,
+        url: "https://pokeapi.co/api/v2/pokemon/2/"
+      }
+    ],
+    types: [
+      {
+        name: "normal",
+        id: 1,
+        url: "https://pokeapi.co/api/v2/type/1/"
+      },
+      {
+        name: "fighting",
         id: 2,
         url: "https://pokeapi.co/api/v2/pokemon/2/"
       }
@@ -32,7 +45,7 @@ class App extends Component {
             <PokemonList pokemons={this.state.pokemons} />
           )} />
           <Route path="/types" render={props => (
-            <h1>Types</h1>
+            <TypeList types={this.state.types}/>
           )} />
         </div>
       </Router>
