@@ -7,30 +7,8 @@ import './App.css';
 
 class App extends Component {
   state = {
-    pokemons: [
-      {
-        name: "bulbasaur",
-        id: 1,
-        url: "https://pokeapi.co/api/v2/pokemon/1/"
-      },
-      {
-        name: "ivysaur",
-        id: 2,
-        url: "https://pokeapi.co/api/v2/pokemon/2/"
-      }
-    ],
-    types: [
-      {
-        name: "normal",
-        id: 1,
-        url: "https://pokeapi.co/api/v2/type/1/"
-      },
-      {
-        name: "fighting",
-        id: 2,
-        url: "https://pokeapi.co/api/v2/pokemon/2/"
-      }
-    ]
+    pokemons: [],
+    types: []
   }
   
   render() {
