@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
-import Util from '../utility/Util';
+import React from 'react';
+import { capitalize } from '../utility/Util';
 
-class PokemonType extends Component {
-  render() {
-    const {name} = this.props.type;
-    return (
-      <div>
-        <p>{ Util.capitalize(name) }</p>
-      </div>
-    )
-  }
+const PokemonType = props => {
+  const { name } = props.type;
+  return (
+    <div>
+      <p>{ capitalize(name) }</p>
+    </div>
+  )
 }
 
 export default PokemonType;
