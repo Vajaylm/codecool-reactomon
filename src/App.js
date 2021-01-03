@@ -5,6 +5,8 @@ import Navbar from './components/layout/Navbar';
 import PokemonList from './components/content/PokemonList';
 import TypeList from './components/content/TypeList';
 import './App.css';
+import PokemonDetail from './components/content/pokemonDetails/PokemonDetail';
+import Util from './components/utility/Util';
 
 class App extends Component {
   state = {
@@ -28,10 +30,15 @@ class App extends Component {
             <Redirect to="/pokemons" />
           </Route> 
           <Route path="/pokemons" render={props => (
-            <PokemonList pokemons={this.state.pokemons} />
+            <PokemonList pokemons={ this.state.pokemons } />
           )} />
           <Route path="/types" render={props => (
-            <TypeList types={this.state.types}/>
+            <TypeList types={ this.state.types }/>
+          )} />
+          <Route path="/pokemon/" render={props => (
+            <PokemonDetail pokemon={this.state.pokemons.filter(pokemon => (
+              Util.getIdFromUrl(window.location.pathname + '/') === Util.getIdFromUrl(pokemon.url)
+            ))}/>
           )} />
         </div>
       </Router>
