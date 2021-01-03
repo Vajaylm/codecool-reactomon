@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Navbar() {
+const Navbar = props => {
   return (
     <header style={navbarStyle}>
       <h1>Pokemon</h1>
