@@ -1,3 +1,5 @@
+Reactomon
+
 Description
 Create a basic frontend application in React using the Pokemon API.
 
@@ -21,3 +23,15 @@ Requirements
 - use create-react-app
 - use axios for fetching data
 - use react-router-dom for navigation
+
+Reactomon+
+Description
+Evolve your previously written Reactomon App!
+
+Tasks
+Rewrite all of your components to Functional Components with Hooks.
+
+Requirements
+
+- yes, all of it. It's not that much as you think
+- create a new feature branch and commit every change to your Github repo
