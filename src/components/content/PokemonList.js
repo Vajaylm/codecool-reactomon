@@ -1,17 +1,37 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Pokemon from './Pokemon';
-import Util from '../utility/Util';
+import { getIdFromUrl } from '../utility/Util';
 
-class PokemonList extends Component {
-  render() {
-    this.props.pokemons.forEach(element => {
-      element.id = Util.getIdFromUrl(element.url);
+const PokemonList = props => {
+  const [pokemons, setPokemons] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    axios.get('https://pokeapi.co/api/v2/pokemon')
+      .then(response => {
+        setPokemons(response.data.results);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        console.log(err);
+        setIsLoading(false);
+      });
+  }, []);
+  
+  let content = (<p>Loading...</p>);
+
+  if (!isLoading) {
+    pokemons.forEach(element => {
+      element.id = getIdFromUrl(element.url);
     });
-    
-    return this.props.pokemons.map((pokemon) => (
-      <Pokemon key={pokemon.id} pokemon={pokemon}/>
-    ));
+
+    content = (pokemons.map((pokemon) => (
+      <Pokemon key={ pokemon.id } pokemon={ pokemon }/>
+    )));
   }
+  
+  return content;
 }
 
 export default PokemonList;
