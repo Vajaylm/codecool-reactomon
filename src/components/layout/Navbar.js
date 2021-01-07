@@ -1,25 +1,48 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import logo from '../../images/pokemon_logo.png';
+import styled from 'styled-components';
+
+const Header = styled.header`
+	text-align: center;
+  padding: 10px;
+`
+
+const Img = styled.img`
+  width: 30%;
+`
+
+const Div = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  transform: translate(115%, 0px);
+  width: 30%;
+`
+
+const A = styled.a`
+  color: #333;
+  padding: 5px 10px;
+  font-size: 30px;
+  transform: translate(${props => props.right ? '20%, 0px' : '-20%, 0px'});
+  transition: 0.3s;
+  &:hover {
+    -webkit-border-radius: 10px;
+    font-weight: bold;
+    background: #007fe2;
+    color: #ffc904;
+  }
+`
 
 const Navbar = props => {
   return (
-    <header style={navbarStyle}>
-      <h1>Pokemon</h1>
-      <Link style={linkStyle} to="/pokemons">Pokemons</Link> | <Link style={linkStyle} to="/types">Types</Link>
-    </header>
+    <Header>
+      <Img src={logo} alt="Pokemon Logo" /><br/>
+      <Div>
+        <A href="/pokemons">Pokemons</A><A right href="/types">Types</A>
+      </Div>
+    </Header>
   );
-}
-
-const navbarStyle = {
-	background: '#333',
-	color: '#fff',
-	textAlign: 'center',
-	padding: '10px'
-}
-
-const linkStyle = {
-  color: '#fff',
-  textDecoration: 'none'
 }
 
 export default Navbar;
