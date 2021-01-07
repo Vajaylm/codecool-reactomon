@@ -25,16 +25,13 @@ const A = styled.a`
   padding: 5px 10px;
   font-size: 30px;
   transform: translate(${props => props.right ? '20%, 0px' : '-20%, 0px'});
+  transition: 0.3s;
   &:hover {
     -webkit-border-radius: 10px;
     font-weight: bold;
     background: #007fe2;
     color: #ffc904;
   }
-`
-
-const Span = styled.span`
-  width: 10%;
 `
 
 const Navbar = props => {
