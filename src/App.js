@@ -1,49 +1,48 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import axios from 'axios';
+import styled from 'styled-components';
 import Navbar from './components/layout/Navbar';
 import PokemonList from './components/content/PokemonList';
 import TypeList from './components/content/TypeList';
-import './App.css';
 import PokemonDetail from './components/content/pokemonDetails/PokemonDetail';
-import Util from './components/utility/Util';
+import './App.css';
 
-class App extends Component {
-  state = {
-    pokemons: [],
-    types: []
-  }
-  
-  componentDidMount() {
-    axios.get('https://pokeapi.co/api/v2/pokemon')
-      .then(response => this.setState({ pokemons: response.data.results }));
-    axios.get('https://pokeapi.co/api/v2/type')
-      .then(response => this.setState({ types: response.data.results }));
-  }
+const NavigationDiv = styled.div`
+  width: 80%;
+  font-family: Marker Felt, fantasy;
+  transform: translate(10%, 0px);
+`
 
-  render() {
-    return (
-      <Router>
-        <div>
-          <Navbar />
-          <Route exact path="/">
-            <Redirect to="/pokemons" />
-          </Route> 
-          <Route path="/pokemons" render={props => (
-            <PokemonList pokemons={ this.state.pokemons } />
+const ContentDiv = styled.div`
+  width: 80%;
+  font-family: Marker Felt, fantasy;
+  transform: translate(10%, 0px);
+`
+
+const App = props => {
+  const content = (
+    <Router>
+      <NavigationDiv>
+        <Navbar />
+      </NavigationDiv>
+      <ContentDiv>
+        <Route exact path="/">
+          <Redirect to="/pokemons" />
+        </Route> 
+        <Route path="/pokemons" render={props => (
+          <PokemonList />
           )} />
-          <Route path="/types" render={props => (
-            <TypeList types={ this.state.types }/>
+        <Route path="/types" render={props => (
+          <TypeList />
           )} />
-          <Route path="/pokemon/" render={props => (
-            <PokemonDetail pokemon={this.state.pokemons.filter(pokemon => (
-              Util.getIdFromUrl(window.location.pathname + '/') === Util.getIdFromUrl(pokemon.url)
-            ))}/>
+        <Route path="/pokemon/:pokemonId" render={props => (
+          <PokemonDetail />
           )} />
-        </div>
-      </Router>
-    );
-  }
+      </ContentDiv>
+    </Router>
+  );
+
+  return content;
 }
 
 export default App;

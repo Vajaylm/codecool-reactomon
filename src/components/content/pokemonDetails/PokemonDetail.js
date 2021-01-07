@@ -1,39 +1,53 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Util from '../../utility/Util';
-import AdvancedDetails from './AdvancedDetails';
+import styled from 'styled-components';
+import BaseDetails from './BaseDetails';
+import TypeDetails from './TypeDetails';
+import StatDetails from './StatDetails';
+import { useRouteMatch } from "react-router-dom";
 
-class PokemonDetail extends Component {
-  state = {
-    details: []
-  }
+const ContentDiv = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  gap: 10px;
+  grid-template-areas:
+    "a b"
+    "a c";
+`
+
+const PokemonDetail = props => {
+  const [details, setDetails] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const pokemonId = useRouteMatch("/pokemon/:pokemonId").params.pokemonId;
+
+  useEffect(() => {
+    setIsLoading(true);
+    axios.get('https://pokeapi.co/api/v2/pokemon/' + pokemonId)
+      .then(response => { 
+        setDetails(response.data);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        console.log(err);
+        setIsLoading(false);
+      });
+  }, [pokemonId]);
   
-  componentDidMount() {
-    const pokemon = this.props.pokemon[0];
-    const id = Util.getIdFromUrl(pokemon.url);
-    
-    axios.get('https://pokeapi.co/api/v2/pokemon/' + id)
-      .then(response => ( 
-        this.setState({ details: response.data })
-      ));
+  let content = <p>Loading...</p>;
+
+  if (!isLoading) {
+    const { name, height, weight, sprites, types, stats } = details;
+    content = (
+      <ContentDiv>
+        <BaseDetails details={ {name, pokemonId, height, weight, sprites} } />
+        <TypeDetails types={ types } />
+        <StatDetails stats={ stats } />
+      </ContentDiv>
+    );
   }
-  
-  render() {
-    const { name, id, height, weight, stats } = this.state.details;
-    
-    if (stats !== undefined) {
-      return (
-        <div>
-          <h1>Name: { Util.capitalize(name) }</h1>
-          <h3>ID: { id }</h3>
-          <h3>Height: { height }</h3>
-          <h3>Weight: { weight }</h3>
-          <AdvancedDetails details={ this.state.details } />
-        </div>
-      );
-    }
-    else { return null; }
-  }
+  return content;
 }
 
 export default PokemonDetail;

@@ -1,14 +1,15 @@
-import React from 'react';
-import { capitalize } from '../utility/Util';
+import React from 'react'
 import styled from 'styled-components';
+import { capitalize } from '../../utility/Util';
 
 const ContentDiv = styled.div`
+  grid-area: b;
   align-self: center;
-  justify-self: center;
+  justify-self: start;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   border-radius: 5px;
-  width: 50%;
+  width: 30%;
 `
 
 const CardDiv = styled.div`
@@ -30,24 +31,23 @@ const CardDiv = styled.div`
   }
 `
 
-const NameDiv = styled.div`
+const DetailsDiv = styled.div`
   padding: 4px 16px;
 `
 
-const PokemonType = props => {
-  const { name } = props.type;
-  
-  let content = (
+const TypeDetails = props => {  
+  return (
     <ContentDiv>
       <CardDiv>
-        <NameDiv>
-          <h4>{ capitalize(name) }</h4>
-        </NameDiv>
+        <DetailsDiv>
+          <h3>Types:</h3>
+          {props.types.map((type) => ( 
+            <h4>{capitalize(type.type.name)}</h4>
+          ))}    
+        </DetailsDiv>
       </CardDiv>
     </ContentDiv>
-  );
-  
-  return content;
+  )
 }
 
-export default PokemonType;
+export default TypeDetails
