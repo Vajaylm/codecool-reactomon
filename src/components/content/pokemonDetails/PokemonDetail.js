@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { capitalize } from '../../utility/Util';
-import AdvancedDetails from './AdvancedDetails';
+import styled from 'styled-components';
+import BaseDetails from './BaseDetails';
+import TypeDetails from './TypeDetails';
+import StatDetails from './StatDetails';
 import { useRouteMatch } from "react-router-dom";
+
+const ContentDiv = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  gap: 10px;
+  grid-template-areas:
+    "a b"
+    "a c";
+`
 
 const PokemonDetail = props => {
   const [details, setDetails] = useState([]);
@@ -26,16 +38,14 @@ const PokemonDetail = props => {
   let content = <p>Loading...</p>;
 
   if (!isLoading) {
-    console.log(details);
-    const { name, height, weight } = details;
-    content = 
-    <div>
-      <h1>Name: { capitalize(name) }</h1>
-      <h3>ID: { pokemonId }</h3>
-      <h3>Height: { height }</h3>
-      <h3>Weight: { weight }</h3>
-      <AdvancedDetails details={ details } />
-    </div>
+    const { name, height, weight, sprites, types, stats } = details;
+    content = (
+      <ContentDiv>
+        <BaseDetails details={ {name, pokemonId, height, weight, sprites} } />
+        <TypeDetails types={ types } />
+        <StatDetails stats={ stats } />
+      </ContentDiv>
+    );
   }
   return content;
 }
