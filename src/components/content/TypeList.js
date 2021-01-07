@@ -2,6 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PokemonType from './PokemonType';
 import { getIdFromUrl } from '../utility/Util';
+import styled from 'styled-components';
+
+const ContentDiv = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: center;
+  gap: 10px;
+`
 
 const TypeList = props => {
   const [types, setTypes] = useState([]);
@@ -27,9 +35,13 @@ const TypeList = props => {
       element.id = getIdFromUrl(element.url);
     });
     
-    content = types.map((type) => (
-      <PokemonType key={ type.id } type={ type }/>
-    ));
+    content = (
+      <ContentDiv>
+        {types.map((type) => (
+          <PokemonType key={ type.id } type={ type }/>
+        ))}
+      </ContentDiv>
+    );
   }
 
   return content;
