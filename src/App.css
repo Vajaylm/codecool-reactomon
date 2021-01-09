@@ -5,6 +5,8 @@
 }
 
 body {
+  background-image: url("./images/pokemon_light.PNG");
+  background-position: right top;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.4;
 }
